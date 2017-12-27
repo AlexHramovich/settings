@@ -1,0 +1,54 @@
+.settings-filter {
+    position: relative;
+    border-bottom: 1px solid white;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        height: 40px;
+    }
+
+    &__dropdown {
+        width: auto;
+        height: auto;
+        margin-left: 10px;
+
+        &:hover {
+            cursor: pointer;
+            color: rgb(0, 151, 167);
+        }
+    }
+
+    &__caption {
+        padding: 0 20px;
+    }
+
+    &__active-field {
+        padding: 0 5px;
+        color: rgb(0, 151, 167);
+    }
+
+    &__dropdown-list {
+        position: absolute;
+        width: 90%;
+        margin: -10px 5% 0px 5%;
+        border-top: 5px solid rgb(0, 151, 167);
+        padding: 7px;
+        box-sizing: border-box;
+        background-color: rgb(39, 39, 39);
+        z-index: 1;
+    }
+
+    &__dropdown-list-item {
+        padding: 5px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(87, 87, 87);
+        }
+    }
+
+    &__dropdown-list_hidden {
+        display: none;
+    }
+}

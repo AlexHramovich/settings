@@ -1,0 +1,142 @@
+{
+    "tables": [
+        {
+            "id": 0,
+            "name": "table1",
+            "items": [
+                {
+                    "id": 0,
+                    "name": "filter1",
+                    "items": [
+                        {
+                            "id":0,
+                            "name": "someString1"
+                        },
+                        {
+                            "id":1,
+                            "name": "someString2"
+                        },
+                        {
+                            "id":2,
+                            "name": "someString3"
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "name": "filter2",
+                    "items": [
+                        {
+                            "id":3,
+                            "name": "someString4"
+                        },
+                        {
+                            "id":4,
+                            "name": "someString5"
+                        },
+                        {
+                            "id":5,
+                            "name": "someString6"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "name": "filter3",
+                    "items": [
+                        {
+                            "id":6,
+                            "name": "someString7"
+                        },
+                        {
+                            "id":7,
+                            "name": "someString8"
+                        },
+                        {
+                            "id":8,
+                            "name": "someString9"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "name": "filter4",
+                    "items": [
+                        {
+                            "id":9,
+                            "name": "someString10"
+                        },
+                        {
+                            "id":10,
+                            "name": "someString11"
+                        },
+                        {
+                            "id":11,
+                            "name": "someString12"
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "name": "filter5",
+                    "items": [
+                        {
+                            "id":12,
+                            "name": "someString13"
+                        },
+                        {
+                            "id":13,
+                            "name": "someString14"
+                        },
+                        {
+                            "id":14,
+                            "name": "someString15"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "table2",
+            "items": [
+                {
+                    "id": 5,
+                    "name": "filter6",
+                    "items": [
+                        {
+                            "id":15,
+                            "name": "someString16"
+                        },
+                        {
+                            "id":16,
+                            "name": "someString17"
+                        },
+                        {
+                            "id":17,
+                            "name": "someString18"
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "name": "filter7",
+                    "items": [
+                        {
+                            "id":18,
+                            "name": "someString19"
+                        },
+                        {
+                            "id":19,
+                            "name": "someString20"
+                        },
+                        {
+                            "id":20,
+                            "name": "someString21"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
