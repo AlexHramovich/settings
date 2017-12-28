@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
+import classNames from 'classnames';
 
 import SettingsFilter from 'main/components/settings-filter/settings-filter';
-import SettingsSeach from 'main/components/settings-search/settings-search';
-import ListItem from 'main/components/list-item/list-item';
+import SettingsSearch from 'main/components/settings-search/settings-search';
+import ContentItem from 'main/components/content-item/content-item';
 
 import './settings-content.scss';
 
 export default class SettingsContent extends React.PureComponent {
     static propTypes = {
         id: PropTypes.number.isRequired,
-        dimensionFields: PropTypes.arrayOf(PropTypes.shape([
-            PropTypes.string,
-            PropTypes.number,
-        ])).isRequired,
-        contextFields: PropTypes.arrayOf(PropTypes.shape([
-            PropTypes.string,
-            PropTypes.number,
-        ])).isRequired,
+        dimensionFields: PropTypes.arrayOf(PropTypes.shape([PropTypes.string, PropTypes.number]))
+            .isRequired,
+        contextFields: PropTypes.arrayOf(PropTypes.shape([PropTypes.string, PropTypes.number]))
+            .isRequired,
         contentValues: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.number,
             name: PropTypes.string,
@@ -28,26 +25,35 @@ export default class SettingsContent extends React.PureComponent {
         setActiveDimensionField: PropTypes.func.isRequired,
         searchValues: PropTypes.func.isRequired,
         activeContentValues: PropTypes.instanceOf(List).isRequired,
+        changeSearchMode: PropTypes.func.isRequired,
+    };
+
+    state = {
+        isDropDownOpen: false,
     };
 
     getContentValues = () =>
         this.props.contentValues.map(value => (
-            <ListItem
-                checked={this.props.activeContentValues.includes(value.id)}
+            <ContentItem
+                isSelected={this.props.activeContentValues.includes(value.id)}
                 key={value.id}
                 id={value.id}
-                handleClick={this.setActiveValue}
+                onHandleClick={this.setActiveValue}
                 value={value.name}
             />
         ));
 
     setActiveValue = (valuesArr) => {
         this.props.setActiveValue(this.props.id, valuesArr);
-    }
+    };
 
     search = (searchStr) => {
-        this.props.searchValues(this.props.id, searchStr);
-    }
+        this.props.searchValues(this.props.id, searchStr, this.state.searchType);
+    };
+
+    changeSearchMode = () => {
+        this.props.changeSearchMode(this.props.id);
+    };
 
     contextItemHandleClick = (fieldId) => {
         this.props.setActiveContextField(this.props.id, fieldId);
@@ -58,6 +64,9 @@ export default class SettingsContent extends React.PureComponent {
     };
 
     render() {
+        const classes = classNames('settings-content__values', {
+            'settings-content__values_dismiss-events': this.state.isDropDownOpen,
+        });
 
         return (
             <div className="settings-content">
@@ -74,12 +83,12 @@ export default class SettingsContent extends React.PureComponent {
                             caption="DIMENSIONS"
                             onHandleClick={this.dimensionsItemHandleClick}
                         />
-
-                        <SettingsSeach onSearch={this.search} />
+                        <SettingsSearch
+                            onSearch={this.search}
+                            onChangeSearchMode={this.changeSearchMode}
+                        />
                     </div>
-                    <ul>
-                        {this.getContentValues()}
-                    </ul>
+                    <ul className={classes}>{this.getContentValues()}</ul>
                 </div>
             </div>
         );

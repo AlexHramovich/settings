@@ -1,0 +1,16 @@
+.content-item {
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    align-items: center;
+    box-sizing:  border-box;
+
+    &_selected {
+        color: #0097a7;
+    }
+    
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(112, 112, 112, 0.322);
+    }
+}

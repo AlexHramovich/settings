@@ -17,11 +17,7 @@ export default class ListItem extends React.PureComponent {
 
     render() {
         return (
-            <li>
-                <span >
-                    <Checkbox label={this.props.value} onCheck={this.onClick} style={{color: 'red'}} />
-                </span>
-            </li>
+            <Checkbox label={this.props.value} onCheck={this.onClick} />
         );
     }
 }

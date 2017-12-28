@@ -6,6 +6,8 @@ import { List } from 'immutable';
 import SettingsHeader from 'main/components/settings-header/settings-header';
 import SettingsContent from 'main/components/settings-content/settings-content';
 
+import './settings.scss';
+
 export default class Settings extends React.PureComponent {
     static propTypes = {
         id: PropTypes.number.isRequired,
@@ -13,6 +15,7 @@ export default class Settings extends React.PureComponent {
         setActiveDimensionField: PropTypes.func.isRequired,
         setActiveValue: PropTypes.func.isRequired,
         searchValues: PropTypes.func.isRequired,
+        changeSearchMode: PropTypes.func.isRequired,
         dimensionsFields: PropTypes.arrayOf(PropTypes.shape([
             PropTypes.string,
             PropTypes.number,
@@ -49,7 +52,6 @@ export default class Settings extends React.PureComponent {
                     <SettingsHeader onDrag={() => {}} />
                     <SettingsContent
                         id={this.props.id}
-                        dataTables={this.props.dataTables}
                         dimensionFields={this.props.dimensionsFields}
                         contextFields={this.props.contextsFields}
                         contentValues={this.props.contentValues}
@@ -58,6 +60,7 @@ export default class Settings extends React.PureComponent {
                         searchValues={this.props.searchValues}
                         setActiveValue={this.props.setActiveValue}
                         activeContentValues={this.props.activeContentValues}
+                        changeSearchMode={this.props.changeSearchMode}
                     />
                 </div>
             </Draggable>

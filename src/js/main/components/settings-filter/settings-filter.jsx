@@ -8,10 +8,7 @@ import './settings-filter.scss';
 
 export default class SettingsFilter extends React.Component {
     static propTypes = {
-        items: PropTypes.arrayOf(PropTypes.shape([
-            PropTypes.string,
-            PropTypes.number,
-        ])),
+        items: PropTypes.arrayOf(PropTypes.shape([PropTypes.string, PropTypes.number])),
         caption: PropTypes.string.isRequired,
         onHandleClick: PropTypes.func.isRequired,
     };
@@ -36,8 +33,11 @@ export default class SettingsFilter extends React.Component {
         ));
 
     getCheckedItems = () =>
-        this.state.checkedItems.map(item =>
-            <span key={item.id} className="settings-filter__active-field">{item.name}</span>)
+        this.state.checkedItems.map(item => (
+            <span key={item.id} className="settings-filter__active-field">
+                {item.name}
+            </span>
+        ));
 
     changeDropdownVisibility = () => {
         this.setState({
@@ -47,8 +47,7 @@ export default class SettingsFilter extends React.Component {
 
     render() {
         const dropdownClasses = classNames('settings-filter__dropdown-list', {
-            'settings-filter__dropdown-list_hidden':
-                !this.state.isDropdownOpen,
+            'settings-filter__dropdown-list_hidden': !this.state.isDropdownOpen,
         });
 
         return (
@@ -64,7 +63,11 @@ export default class SettingsFilter extends React.Component {
                     <div className="settings-filter__active-fields">{this.getCheckedItems()}</div>
                 </div>
                 <ul className={dropdownClasses}>
-                    {this.props.items && this.getContent()}
+                    {this.props.items.length === 0 ? (
+                        <span>choose the context...</span>
+                    ) : (
+                        this.getContent()
+                    )}
                 </ul>
             </div>
         );

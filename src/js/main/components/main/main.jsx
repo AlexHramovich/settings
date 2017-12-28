@@ -13,8 +13,12 @@ export default class Main extends React.PureComponent {
     };
 
     componentDidMount() {
-        this.props.initDefaultSettingsState(8);
-        this.props.initDefaultSettingsState(9);
+        this.props.initDefaultSettingsState(1);
+        this.props.initDefaultSettingsState(2);
+        this.props.initDefaultSettingsState(3);
+        this.props.initDefaultSettingsState(4);
+        this.props.initDefaultSettingsState(5);
+        this.props.initDefaultSettingsState(6);
         this.props.fetchTables();
     }
 
@@ -26,8 +30,22 @@ export default class Main extends React.PureComponent {
                 ) : (
                     <div className="settings">
                         <div className="main">
-                            <SettingsContainer id={8} />
-                            <SettingsContainer id={9} />
+                            <SettingsContainer id={1} />
+                        </div>
+                        <div className="main">
+                            <SettingsContainer id={2} />
+                        </div>
+                        <div className="main">
+                            <SettingsContainer id={3} />
+                        </div>
+                        <div className="main">
+                            <SettingsContainer id={4} />
+                        </div>
+                        <div className="main">
+                            <SettingsContainer id={5} />
+                        </div>
+                        <div className="main">
+                            <SettingsContainer id={6} />
                         </div>
                     </div>
                 )}

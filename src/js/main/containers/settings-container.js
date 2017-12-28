@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getContentValues, getContextsValues, getDimensionsValues } from 'main/tools/selectors';
-import { setActiveContextField, setActiveDimensionField, searchValues, setActiveValue } from 'main/actions/main-actions';
+import { setActiveContextField, setActiveDimensionField, searchValues, setActiveValue, changeSearchMode } from 'main/actions/main-actions';
 
 import Settings from 'main/components/settings/settings';
 
@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
     setActiveDimensionField: (id, fieldId) => dispatch(setActiveDimensionField(id, fieldId)),
     searchValues: (id, searchString) => dispatch(searchValues(id, searchString)),
     setActiveValue: (id, valueId) => dispatch(setActiveValue(id, valueId)),
+    changeSearchMode: id => dispatch(changeSearchMode(id)),
 });
 
 const SettingsContainer = connect(mapStateToProps, mapDispatchToProps)(Settings);

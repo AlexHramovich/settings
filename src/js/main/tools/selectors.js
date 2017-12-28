@@ -1,23 +1,34 @@
 import { createSelector } from 'reselect';
 import Fuse from 'fuse.js';
 
-const searchOptions = {
-    keys: ['name'],
-    caseSensitive: true,
-    findAllMatches: true,
-    maxPatternLength: 32,
-    minMatchCharLength: 1,
+const getSearchOptions = (mode) => {
+    let thresholdValue = 0.3;
+    if (mode) {
+        thresholdValue = 0;
+    }
+
+    return {
+        keys: ['name'],
+        caseSensitive: true,
+        findAllMatches: true,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
+        threshold: thresholdValue,
+    };
 };
 
-const getContextFields = (state, props) => state.getIn(['settingsStates', props.id, 'contextsFields']);
+const getContextFields = (state, props) =>
+    state.getIn(['settingsStates', props.id, 'contextsFields']);
 const getDimensionsFields = (state, props) =>
     state.getIn(['settingsStates', props.id, 'dimensionsFields']);
 const getDataTable = state => state.get('dataTables');
 const getSearchString = (state, props) => state.getIn(['settingsStates', props.id, 'searchString']);
+const getSearchMode = (state, props) =>
+    state.getIn(['settingsStates', props.id, 'strictSearchMode']);
 
 export const getContentValues = createSelector(
-    [getContextFields, getDimensionsFields, getDataTable, getSearchString],
-    (contextFields, dimensionsFields, dataTables, searchString) => {
+    [getContextFields, getDimensionsFields, getDataTable, getSearchString, getSearchMode],
+    (contextFields, dimensionsFields, dataTables, searchString, searchMode) => {
         let values = [];
 
         dataTables.forEach((table) => {
@@ -30,7 +41,7 @@ export const getContentValues = createSelector(
             }
         });
 
-        const fuse = new Fuse(values, searchOptions);
+        const fuse = new Fuse(values, getSearchOptions(searchMode));
 
         if (searchString) {
             values = fuse.search(searchString);

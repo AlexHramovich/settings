@@ -8,12 +8,13 @@ import {
     SET_SETTINGS_DEFAULT_STATE,
     SET_SEARCH_STRING,
     SET_ACTIVE_CONTENT_VALUE,
+    CHANGE_SETTINGS_SEARCH_MODE,
 } from 'main/constants/main-constants';
 
 const StateRecord = Record({
     isLoading: false,
     dataTables: List(),
-    settingsStates: Map({}),
+    settingsStates: Map(),
 });
 
 const SettingsStateRecord = Map({
@@ -21,6 +22,7 @@ const SettingsStateRecord = Map({
     contextsFields: List(),
     dimensionsFields: List(),
     contentValues: List(),
+    strictSearchMode: false,
 });
 
 export default function MainReducer(state = StateRecord(), action) {
@@ -31,62 +33,35 @@ export default function MainReducer(state = StateRecord(), action) {
     case SUCCESS_GETTING_TABLES:
         return state.set('dataTables', action.tables).set('isLoading', false);
 
+    case CHANGE_SETTINGS_SEARCH_MODE:
+        return state.setIn(
+            ['settingsStates', action.id, 'strictSearchMode'],
+            !state.getIn(['settingsStates', action.id, 'strictSearchMode']),
+        );
+
     case SET_SETTINGS_DEFAULT_STATE:
         return state.setIn(['settingsStates', action.id], SettingsStateRecord);
 
-    case CHANGE_ACTIVE_CONTEXTS_FIELDS: {
-        const { fieldId } = action;
-        let activeFields = state
-            .get('settingsStates')
-            .get(action.id)
-            .get('contextsFields');
-        const fieldIndex = activeFields.indexOf(fieldId);
-
-        if (fieldIndex > -1) {
-            activeFields = activeFields.splice(fieldIndex, 1);
-        } else {
-            activeFields = activeFields.push(fieldId);
-        }
-
-        return state.setIn(['settingsStates', action.id, 'contextsFields'], activeFields);
-    }
+    case CHANGE_ACTIVE_CONTEXTS_FIELDS:
+        return state.setIn(
+            ['settingsStates', action.id, 'contextsFields'],
+            action.contextFields,
+        );
 
     case SET_SEARCH_STRING:
         return state.setIn(['settingsStates', action.id, 'searchString'], action.searchString);
 
-    case SET_ACTIVE_CONTENT_VALUE: {
-        const { valueId } = action;
-        let activeValues = state
-            .getIn(['settingsStates', action.id, 'contentValues'])
-            .push(action.id);
+    case SET_ACTIVE_CONTENT_VALUE:
+        return state.setIn(
+            ['settingsStates', action.id, 'contentValues'],
+            action.contentValues,
+        );
 
-        const fieldIndex = activeValues.indexOf(valueId);
-
-        if (fieldIndex > -1) {
-            activeValues = activeValues.splice(fieldIndex, 1);
-        } else {
-            activeValues = activeValues.push(valueId);
-        }
-
-        return state.setIn(['settingsStates', action.id, 'contentValues'], activeValues);
-    }
-
-    case CHANGE_ACTIVE_DIMENSIONS_FIELDS: {
-        const { fieldId } = action;
-        let activeFields = state
-            .get('settingsStates')
-            .get(action.id)
-            .get('dimensionsFields');
-        const fieldIndex = activeFields.indexOf(fieldId);
-
-        if (fieldIndex > -1) {
-            activeFields = activeFields.splice(fieldIndex, 1);
-        } else {
-            activeFields = activeFields.push(fieldId);
-        }
-
-        return state.setIn(['settingsStates', action.id, 'dimensionsFields'], activeFields);
-    }
+    case CHANGE_ACTIVE_DIMENSIONS_FIELDS:
+        return state.setIn(
+            ['settingsStates', action.id, 'dimensionsFields'],
+            action.dimensionsFields,
+        );
 
     default:
         return state;
