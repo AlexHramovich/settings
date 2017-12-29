@@ -12,7 +12,7 @@ export default class ListItem extends React.PureComponent {
     };
 
     onClick = () => {
-        this.props.handleClick(this.props.id);
+        this.props.handleClick(this.props.id, this.props.value);
     };
 
     render() {

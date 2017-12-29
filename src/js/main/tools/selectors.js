@@ -2,10 +2,7 @@ import { createSelector } from 'reselect';
 import Fuse from 'fuse.js';
 
 const getSearchOptions = (mode) => {
-    let thresholdValue = 0.3;
-    if (mode) {
-        thresholdValue = 0;
-    }
+    const thresholdValue = mode ? 0 : 0.3;
 
     return {
         keys: ['name'],

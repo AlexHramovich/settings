@@ -1,31 +1,5 @@
-export const getCorrectContextFields = (state, settingsId, id) => {
-    let activeFields = state.getIn(['settingsStates', settingsId, 'contextsFields']);
-    const fieldIndex = activeFields.indexOf(id);
-
-    if (fieldIndex > -1) {
-        activeFields = activeFields.splice(fieldIndex, 1);
-    } else {
-        activeFields = activeFields.push(id);
-    }
-
-    return activeFields;
-};
-
-export const getCorrectDimensionsFields = (state, settingsId, id) => {
-    let activeFields = state.getIn(['settingsStates', settingsId, 'dimensionsFields']);
-    const fieldIndex = activeFields.indexOf(id);
-
-    if (fieldIndex > -1) {
-        activeFields = activeFields.splice(fieldIndex, 1);
-    } else {
-        activeFields = activeFields.push(id);
-    }
-
-    return activeFields;
-};
-
-export const getCorrectValueFields = (state, settingsId, id) => {
-    let activeValues = state.getIn(['settingsStates', settingsId, 'contentValues']);
+export const getValue = (state, settingsId, id, valueName) => {
+    let activeValues = state.getIn(['settingsStates', settingsId, valueName]);
     const fieldIndex = activeValues.indexOf(id);
 
     if (fieldIndex > -1) {
@@ -36,3 +10,7 @@ export const getCorrectValueFields = (state, settingsId, id) => {
 
     return activeValues;
 };
+
+export const getCorrectContextFields = (state, settingsId, id) => getValue(state, settingsId, id, 'contextsFields');
+export const getCorrectDimensionsFields = (state, settingsId, id) => getValue(state, settingsId, id, 'dimensionsFields');
+export const getCorrectValueFields = (state, settingsId, id) => getValue(state, settingsId, id, 'contentValues');
